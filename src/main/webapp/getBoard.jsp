@@ -11,7 +11,7 @@
 	
 	BoardDAO boardDAO = new BoardDAO();
 	BoardVO board = boardDAO.getBoard(vo);
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>
