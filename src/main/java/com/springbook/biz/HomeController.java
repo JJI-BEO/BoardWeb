@@ -38,24 +38,13 @@ public class HomeController {
 		vo.setId("test");
 		vo.setPassword("123");
 		
-		
-		UserVO user = userService.getUser(vo);
-		model.addAttribute("id", user.getId());
-		model.addAttribute("password", user.getPassword());
-		model.addAttribute("name", user.getName());
-		model.addAttribute("role", user.getRole());
-		
-		System.out.println("Home id :" + user.getId());
-		
-		
 //		UserVO user = userService.getUser(vo);
 //		model.addAttribute("id", user.getId());
-//		model.addAttribute("pass", user.getPassword());
+//		model.addAttribute("password", user.getPassword());
 //		model.addAttribute("name", user.getName());
 //		model.addAttribute("role", user.getRole());
 //		
 //		System.out.println("Home id :" + user.getId());
-		
 		
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -65,7 +54,6 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
 		
 		return "home";
 	}

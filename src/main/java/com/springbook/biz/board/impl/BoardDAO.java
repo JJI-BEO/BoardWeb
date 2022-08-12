@@ -66,7 +66,6 @@ public class BoardDAO {
 
 	public void updateBoard(BoardVO vo) {
 		
-		
 		try {
 			conn = JDBCUtil.GetConnection();
 			pstmt = conn.prepareStatement(BOARD_UPDATE);

@@ -52,7 +52,7 @@
 			
 			<tr>
 				<td><%=board.getSeq() %></td>
-				<td><%=board.getTitle() %></td>
+				<td><a href="getBoard.jsp?seq=<%=board.getSeq()%>"><%=board.getTitle() %></td>
 				<td><%=board.getWriter() %></td>
 				<td><%=board.getRegDate() %></td>
 				<td><%=board.getCnt() %></td>
@@ -62,7 +62,8 @@
 				}
 			%>
 		</table>
-		
+		<br>
+		<a href="insertBoard.jsp">새글 등록</a>
 	</center>
 </body>
 </html>

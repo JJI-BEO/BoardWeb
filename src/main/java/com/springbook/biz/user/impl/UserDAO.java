@@ -36,6 +36,7 @@ public class UserDAO {
 				 user.setName(rs.getString("name"));
 				 user.setRole(rs.getString("role"));
 				 System.out.println("1명정보 : " + user);
+				 System.out.println("===> get User");
 			}
 
 		} catch (Exception e) {
