@@ -6,10 +6,14 @@
 <%@page import="java.util.List"%>
 
 <%
-	BoardVO vo = new BoardVO();
+		
+ 	List<BoardVO> boardList = (List)session.getAttribute("board");
+/* List<BoardVO> boardList = (List)request.getAttribute("boardList"); */
+
+	/* BoardVO vo = new BoardVO();
 	BoardDAO boardDAO = new BoardDAO();
 	
-	List<BoardVO> boardList = boardDAO.getBoardList();
+	List<BoardVO> boardList = boardDAO.getBoardList(); */
 %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +28,7 @@
 			테스터님 환영합니다 <a href="logout_proc.jsp">log out</a>
 		</h3>
 
-		<form action="getBoardList.jsp" method="post">
+		<form action="getBoardList.do" method="post">
 			<table border="1" cellpadding="0" cellspacing="0" width="700">
 				<tr>
 					<td align="right"><select name="searchCondition">
@@ -52,7 +56,7 @@
 			
 			<tr>
 				<td><%=board.getSeq() %></td>
-				<td><a href="getBoard.jsp?seq=<%=board.getSeq()%>"><%=board.getTitle() %></td>
+				<td><a href="getBoard.do?seq=<%=board.getSeq()%>"><%=board.getTitle() %></td>
 				<td><%=board.getWriter() %></td>
 				<td><%=board.getRegDate() %></td>
 				<td><%=board.getCnt() %></td>

@@ -3,7 +3,20 @@
 ## 목차
 
 - # 목차
-	
+	- [용어](#용어)
+	- [수행 순서](#수행-순서)
+	- [결합도](#결합도)
+	- [빈](#빈)
+	- [의존 주입](#의존-주입)
+	- [어노테이션](#Annotation)
+	- [롬복](#lobok)
+	- [계층](#계층)
+	- [DB세팅](#데이터베이스-연결)
+	- [의존주입 참고 자료](#참고-자료)
+	- [AOP 참고 사이트](#참고-사이트)
+	- []
+	- [스프링 jdbc](#Spring-Jdbc)
+	- [DML](#dml)
 	
 ## 용어
 
@@ -414,6 +427,7 @@ public static void close(ResultSet rs, PreparedStatement stmt, Connection conn) 
 ### 동작 시점
 
 >
+```
 <!-- 실행 이전에 -->
 <!-- <aop:aspect ref="AfterThrowingAdvice"> -->
 <!-- <aop:before method="before()" pointcut-ref="allPointcut"/> -->
@@ -430,7 +444,6 @@ public static void close(ResultSet rs, PreparedStatement stmt, Connection conn) 
 <!-- <aop:after method="finallyLog" pointcut-ref="allPointcut"/> -->
 <!-- </aop:aspect> -->
 ```
-
 >@Before
  메소드 실행 전 기능 수행.
 @After
@@ -448,8 +461,103 @@ public static void close(ResultSet rs, PreparedStatement stmt, Connection conn) 
 ---
 
 
-
 ### JoinPoint
 	- getSiqnature()
 	- getTarget()
 	- getArgs()
+
+---
+
+##### 이거 쓰면다됨..
+* <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+```
+@Service
+@Aspect
+public class beforeAdvice {
+	@Pointcut("execution(* com.springbook.biz..*Impl.*(..))")
+	// 위 포인트컷의 아이디값?
+	private void allPointcut() {}
+	
+	@Before("allPointcut()")
+	public void before(JoinPoint jp) {
+		String method = jp.getSignature().getName();
+		Object[] args = jp.getArgs();
+		System.out.println("[사전 처리]" + method + "()메소드 ARGS정보" + args[0].toString());
+	}
+}
+```
+
+
+
+
+
+
+### Spring Jdbc
+
+1.관련 라이브 러리 추가
+```
+<!-- Spring jdbc -->
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>5.0.10.RELEASE</version>
+	</dependency>
+```
+```
+<!-- commons dbcp -->
+	<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
+	<dependency>
+   	 	<groupId>commons-dbcp</groupId>
+    	<artifactId>commons-dbcp</artifactId>
+    	<version>1.4</version>
+	</dependency>
+```
+2.applicationContext.xml 에 데이터 베이스 설정 추가
+```
+<!-- 스프링 데이터베이스 설정-->
+	<!-- 프로퍼티스 파일에 설정된 프로퍼티 정보 엘리먼트 등록 -->
+	<context:property-placeholder location="classpath:config/database.properties"/>	
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+
+	<bean id ="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"></bean>	
+```
+### DML
+
+insert-update-delete(테이블에 정보를 수정)
+commit - rollback
+
+##### -jsp
+setAutoCommit() //true
+setAutoCommit(false) //true
+insert-update-delete
+
+```
+	<!--트랜잭션 빈생성 -->
+   <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+   		<property name="dataSource" ref="dataSource"/>
+   </bean>
+	
+	
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+				<tx:method name="get" read-only="true"/>
+				<!-- 모든 대상을 상대로 -->
+				<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 트랜잭션 aop  -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="txPointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+```
+
+
