@@ -17,12 +17,36 @@ public class DispatcherServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		process(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		process(request, response);
 	}
-
+	
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String uri = request.getRequestURI(); // http://localhost:9999/BoardWeb3/getBoard.do
+		String path = uri.substring(uri.lastIndexOf("/")); //getBoard.do
+		
+		if(path.equals("/login.do")) {
+			System.out.println("로그인 처리");
+		}else if (path.equals("/logout.do")) {
+			
+		}else if (path.equals("/insertBoard.do")) {
+			
+		}else if (path.equals("/updateBoard.do")) {
+			
+		}else if (path.equals("/deleteBoard.do")) {
+			
+		}else if (path.equals("/getBoard.do")) {
+			
+		}else if (path.equals("/getBoardList.do")) {
+			
+		}
+			
+		
+		
+				
+	}
 }
