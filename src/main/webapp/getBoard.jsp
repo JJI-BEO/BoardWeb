@@ -23,7 +23,7 @@
 <body>
 	<center>
 		<h1>글 상세</h1>
-		<a href="Logout_proc.jsp">Log-out</a>
+		<jsp:include page="logout.jsp"/>
 		<hr>
 		<form action="UpdateBoard.do" method="post">
 			<input type="hidden" name="seq" value="<%=board.getSeq()%>">

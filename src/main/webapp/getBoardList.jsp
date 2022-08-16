@@ -24,10 +24,7 @@
 <body>
 	<center>
 		<h1>글 목록</h1>
-		<h3>
-			테스터님 환영합니다 <a href="logout_proc.jsp">log out</a>
-		</h3>
-
+		<jsp:include page="logout.jsp"/>
 		<form action="getBoardList.do" method="post">
 			<table border="1" cellpadding="0" cellspacing="0" width="700">
 				<tr>
