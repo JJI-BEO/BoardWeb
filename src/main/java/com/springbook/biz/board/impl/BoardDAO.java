@@ -28,7 +28,7 @@ public class BoardDAO {
 	
 	
 	public void boardCnt(BoardVO vo) {
-		System.out.println("===> board cnt");
+		System.out.println("DAO===> board cnt");
 		
 		try {
 			conn = JDBCUtil.GetConnection();
@@ -44,7 +44,7 @@ public class BoardDAO {
 	}
 
 	public void insertBoard(BoardVO vo ) {
-		System.out.println("===> board insert ");
+		System.out.println("DAO===> board insert ");
 
 		System.out.println(vo.getTitle() + "DAO");
 		System.out.println(vo.getContent() + "DAO");
@@ -82,7 +82,7 @@ public class BoardDAO {
 	}
 
 	public void deleteBoard(BoardVO vo) {
-		System.out.println("===> 삭제");
+		System.out.println("DAO===> 삭제");
 		
 		try {
 			conn = JDBCUtil.GetConnection();
@@ -102,7 +102,7 @@ public class BoardDAO {
 		BoardVO board = null;
 		// 조회시 카운터 증가
 		boardCnt(vo);
-		System.out.println("===> 한명조회()");
+		System.out.println("DAO===> 한명조회()");
 
 		try {
 			conn = JDBCUtil.GetConnection();
@@ -132,7 +132,7 @@ public class BoardDAO {
 
 	public List<BoardVO> getBoardList() {
 
-		System.out.println("===> JDBC getBoardList()");
+		System.out.println("DAO===> JDBC getBoardList()");
 
 		List<BoardVO> boardList = new ArrayList();
 
